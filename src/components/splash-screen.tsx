@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import Image from "next/image";
-import { startBGM } from "@/hooks/use-bgm";
+import { startBGM, resumeBGMOnInteraction } from "@/hooks/use-bgm";
 
 const STORAGE_KEY = "chloe-entered";
 const LOAD_DURATION = 900; // ms
@@ -20,7 +20,7 @@ export function SplashScreen({ children }: { children: React.ReactNode }) {
     const already = sessionStorage.getItem(STORAGE_KEY);
     if (already) {
       setEntered(true);
-      startBGM();
+      resumeBGMOnInteraction();
       return;
     }
     setEntered(false);

@@ -56,6 +56,23 @@ export function startBGM() {
   audio.play().then(() => fadeVolume(audio!, BGM_VOLUME)).catch(() => {});
 }
 
+/** Resume BGM after a page refresh (waits for first user interaction) */
+export function resumeBGMOnInteraction() {
+  if (typeof window === "undefined") return;
+  if (localStorage.getItem(STORAGE_KEY) === "true") return; // user muted
+
+  const resume = () => {
+    startBGM();
+    document.removeEventListener("click", resume, true);
+    document.removeEventListener("touchstart", resume, true);
+    document.removeEventListener("keydown", resume, true);
+  };
+
+  document.addEventListener("click", resume, true);
+  document.addEventListener("touchstart", resume, true);
+  document.addEventListener("keydown", resume, true);
+}
+
 export function useBGM() {
   const isMuted = useSyncExternalStore(subscribe, getSnapshot, () => false);
 
