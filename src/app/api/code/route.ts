@@ -22,7 +22,7 @@ export async function POST(req: NextRequest) {
             Authorization: `Bearer ${process.env.OPENAI_API_KEY}`,
           },
           body: JSON.stringify({
-            model: "gpt-5.1",
+            model: "gpt-4.1",
             messages: [
               {
                 role: "system",
@@ -32,8 +32,6 @@ export async function POST(req: NextRequest) {
               { role: "user", content: prompt },
             ],
             max_tokens: 4000,
-            reasoning_effort: "none",
-            verbosity: "low",
           }),
         }
       );
