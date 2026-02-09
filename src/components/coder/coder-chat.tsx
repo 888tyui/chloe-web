@@ -355,6 +355,9 @@ export function CoderChat({ onCodeGenerated, currentCode }: CoderChatProps) {
         <span className="block mt-1.5 font-mono text-[7px] text-chloe-ash/50 tracking-wider text-center">
           enter to send † shift+enter for newline
         </span>
+        <span className="block mt-0.5 font-mono text-[7px] text-chloe-ash/30 tracking-wider text-center">
+          responses may take up to 3 minutes for complex code generation
+        </span>
       </div>
     </div>
   );
