@@ -152,8 +152,8 @@ export default function AgentPage() {
       </div>
 
       {/* Right Panel - Tabs */}
-      <div className="flex flex-1 flex-col overflow-hidden bg-chloe-void">
-        <Tabs defaultValue="chat" className="flex flex-1 flex-col">
+      <div className="flex flex-1 min-h-0 flex-col overflow-hidden bg-chloe-void">
+        <Tabs defaultValue="chat" className="flex flex-1 min-h-0 flex-col">
           <div className="border-b border-chloe-pink/15 bg-chloe-abyss px-3 pt-3 flex items-center gap-3">
             <TabsList className="grid w-fit grid-cols-3 bg-chloe-void border border-chloe-pink/15">
               <TabsTrigger
