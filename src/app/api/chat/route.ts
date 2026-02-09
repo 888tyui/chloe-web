@@ -4,10 +4,10 @@ import { getOpenAIResponse } from "@/lib/openai";
 import { getSystemPrompt, type ChatContext } from "@/lib/personas";
 
 const MAX_TOKENS: Record<ChatContext, number> = {
-  agent: 1000,
-  shell: 1000,
-  dex: 1000,
-  coder: 4000,
+  agent: 2000,
+  shell: 2000,
+  dex: 2000,
+  coder: 16384,
 };
 
 export async function POST(req: NextRequest) {
