@@ -39,7 +39,10 @@ export async function POST(req: NextRequest) {
       const response = await getOpenAIResponse(
         systemPrompt,
         messages,
-        MAX_TOKENS[chatContext] ?? 1000
+        MAX_TOKENS[chatContext] ?? 1000,
+        chatContext === "coder"
+          ? { reasoningEffort: "none" }
+          : { reasoningEffort: "none", verbosity: "low" }
       );
       return NextResponse.json(response);
     }

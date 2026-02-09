@@ -194,9 +194,14 @@ export function CoderChat({ onCodeGenerated, currentCode }: CoderChatProps) {
       let codeAttached = false;
 
       // Handle code from API response
-      if (data.code && typeof data.code === "object" && data.code.content) {
-        onCodeGenerated(data.code.content);
-        codeAttached = true;
+      if (data.code) {
+        if (typeof data.code === "object" && data.code.content) {
+          onCodeGenerated(data.code.content);
+          codeAttached = true;
+        } else if (typeof data.code === "string" && data.code.trim()) {
+          onCodeGenerated(data.code);
+          codeAttached = true;
+        }
       }
 
       // Handle mock response with _template marker
