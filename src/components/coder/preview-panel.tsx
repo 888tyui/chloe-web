@@ -6,9 +6,10 @@ import { Button } from "@/components/ui/button";
 
 interface PreviewPanelProps {
   code: string;
+  isHtml?: boolean;
 }
 
-export function PreviewPanel({ code }: PreviewPanelProps) {
+export function PreviewPanel({ code, isHtml = true }: PreviewPanelProps) {
   const [srcDoc, setSrcDoc] = useState("");
   const [key, setKey] = useState(0);
 
@@ -20,6 +21,7 @@ export function PreviewPanel({ code }: PreviewPanelProps) {
   }, [code]);
 
   const isEmpty = !code.trim();
+  const canPreview = isHtml && !isEmpty;
 
   return (
     <div className="flex h-full flex-col overflow-hidden border border-chloe-pink/10">
@@ -28,11 +30,11 @@ export function PreviewPanel({ code }: PreviewPanelProps) {
           <span className="font-mono text-[10px] text-chloe-cyan tracking-widest uppercase">
             preview
           </span>
-          {!isEmpty && (
+          {canPreview && (
             <span className="h-1.5 w-1.5 rounded-full bg-chloe-cyan/60 animate-pulse" />
           )}
         </div>
-        {!isEmpty && (
+        {canPreview && (
           <Button
             variant="ghost"
             size="sm"
@@ -45,25 +47,7 @@ export function PreviewPanel({ code }: PreviewPanelProps) {
         )}
       </div>
       <div className="flex-1 bg-chloe-void">
-        {isEmpty ? (
-          <div className="flex h-full flex-col items-center justify-center gap-4">
-            <div className="flex h-14 w-14 items-center justify-center border border-chloe-elevated/40 bg-chloe-abyss/30">
-              <Code2 className="h-6 w-6 text-chloe-ash/50" />
-            </div>
-            <div className="text-center space-y-1.5">
-              <p className="font-mono text-[11px] text-chloe-ash/60">
-                nothing to preview yet
-              </p>
-              <p className="font-mono text-[9px] text-chloe-ash/50 leading-relaxed max-w-[200px]">
-                use the chat to generate a component,<br />
-                or write code directly in the editor
-              </p>
-            </div>
-            <span className="font-mono text-[8px] text-chloe-pink/15 tracking-[0.3em]">
-              † awaiting creation †
-            </span>
-          </div>
-        ) : (
+        {canPreview ? (
           <iframe
             key={key}
             srcDoc={srcDoc}
@@ -71,6 +55,27 @@ export function PreviewPanel({ code }: PreviewPanelProps) {
             className="h-full w-full border-0"
             sandbox="allow-scripts"
           />
+        ) : (
+          <div className="flex h-full flex-col items-center justify-center gap-4">
+            <div className="flex h-14 w-14 items-center justify-center border border-chloe-elevated/40 bg-chloe-abyss/30">
+              <Code2 className="h-6 w-6 text-chloe-ash/50" />
+            </div>
+            <div className="text-center space-y-1.5">
+              <p className="font-mono text-[11px] text-chloe-ash/60">
+                {!isHtml && !isEmpty
+                  ? "preview is only available for HTML files"
+                  : "nothing to preview yet"}
+              </p>
+              <p className="font-mono text-[9px] text-chloe-ash/50 leading-relaxed max-w-[220px]">
+                {!isHtml && !isEmpty
+                  ? "switch to the editor tab to view your code,\nor generate an HTML file for live preview"
+                  : "use the chat to generate code,\nor write directly in the editor"}
+              </p>
+            </div>
+            <span className="font-mono text-[8px] text-chloe-pink/15 tracking-[0.3em]">
+              {!isHtml && !isEmpty ? "† code only †" : "† awaiting creation †"}
+            </span>
+          </div>
         )}
       </div>
     </div>

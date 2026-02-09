@@ -5,8 +5,14 @@ import { Send, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
+interface GeneratedCode {
+  content: string;
+  language: string;
+  filename: string;
+}
+
 interface CoderChatProps {
-  onCodeGenerated: (code: string) => void;
+  onCodeGenerated: (code: GeneratedCode) => void;
   currentCode: string;
 }
 
@@ -141,8 +147,8 @@ function detectTemplate(text: string): string | null {
 const INITIAL_MSG: ChatMsg = {
   id: "init",
   role: "assistant",
-  content: "welcome to the code space. ♡\n\ntell me what you want to build — a button, card, form, landing page... or just describe it.\n\nI'll generate it, you refine it.",
-  suggestions: ["make a button", "create a landing page", "build a form"],
+  content: "welcome to the code space. ♡\n\ntell me what you want to build — HTML, Python, TypeScript, Rust, Solidity... anything.\n\nI'll generate it, you refine it.",
+  suggestions: ["make a landing page", "write a python script", "create a rust program"],
 };
 
 export function CoderChat({ onCodeGenerated, currentCode }: CoderChatProps) {
@@ -203,11 +209,15 @@ export function CoderChat({ onCodeGenerated, currentCode }: CoderChatProps) {
       if (data.code) {
         if (typeof data.code === "object" && data.code.content) {
           console.log("[CODER] Using code.content (object), length:", data.code.content.length);
-          onCodeGenerated(data.code.content);
+          onCodeGenerated({
+            content: data.code.content,
+            language: data.code.language || "html",
+            filename: data.code.filename || "index.html",
+          });
           codeAttached = true;
         } else if (typeof data.code === "string" && data.code.trim()) {
           console.log("[CODER] Using code as string, length:", data.code.length);
-          onCodeGenerated(data.code);
+          onCodeGenerated({ content: data.code, language: "html", filename: "index.html" });
           codeAttached = true;
         } else {
           console.log("[CODER] code field exists but not usable:", data.code);
@@ -219,9 +229,9 @@ export function CoderChat({ onCodeGenerated, currentCode }: CoderChatProps) {
       // Handle mock response with _template marker
       if (data._template) {
         if (data._template === "clear") {
-          onCodeGenerated("");
+          onCodeGenerated({ content: "", language: "html", filename: "index.html" });
         } else if (CODE_TEMPLATES[data._template]) {
-          onCodeGenerated(CODE_TEMPLATES[data._template]);
+          onCodeGenerated({ content: CODE_TEMPLATES[data._template], language: "html", filename: "index.html" });
           codeAttached = true;
         }
       }
@@ -245,11 +255,11 @@ export function CoderChat({ onCodeGenerated, currentCode }: CoderChatProps) {
       let suggestions: string[] | undefined;
 
       if (lower.includes("clear") || lower.includes("reset")) {
-        onCodeGenerated("");
+        onCodeGenerated({ content: "", language: "html", filename: "index.html" });
         replyText = "editor cleared. ready for something new... what shall we build? †";
         suggestions = ["make a button", "create a card", "build a landing page"];
       } else if (tmpl && CODE_TEMPLATES[tmpl]) {
-        onCodeGenerated(CODE_TEMPLATES[tmpl]);
+        onCodeGenerated({ content: CODE_TEMPLATES[tmpl], language: "html", filename: "index.html" });
         codeAttached = true;
         const names: Record<string, string> = {
           button: "button component",

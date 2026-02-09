@@ -39,8 +39,10 @@ export default function CoderPage() {
   );
 
   const handleCodeGenerated = useCallback(
-    (code: string) => {
-      setFiles((prev) => ({ ...prev, [activeFile]: code }));
+    (code: { content: string; language: string; filename: string }) => {
+      const filename = code.filename || activeFile;
+      setFiles((prev) => ({ ...prev, [filename]: code.content }));
+      setActiveFile(filename);
     },
     [activeFile]
   );
@@ -184,7 +186,7 @@ export default function CoderPage() {
             />
           </div>
           <div className={cn("h-full", rightTab !== "preview" && "hidden")}>
-            <PreviewPanel code={files["index.html"] ?? ""} />
+            <PreviewPanel code={currentCode} isHtml={activeFile.endsWith(".html")} />
           </div>
         </div>
       </div>
