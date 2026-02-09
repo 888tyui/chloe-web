@@ -199,7 +199,7 @@ export default function AgentPage() {
               </span>
             </div>
           </div>
-          <TabsContent value="chat" className="flex-1 overflow-hidden mt-0">
+          <TabsContent value="chat" className="flex-1 min-h-0 overflow-hidden mt-0">
             <ChatPanel />
           </TabsContent>
           <TabsContent
