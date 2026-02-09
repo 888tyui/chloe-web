@@ -17,13 +17,11 @@ const SUGGESTED_PROMPTS = [
 export function ChatPanel() {
   const { messages, isLoading, addMessage, setLoading, setMood, setActiveExpression } =
     useChatStore();
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages]);
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, isLoading]);
 
   const handleSend = async (content: string) => {
     addMessage({ role: "user", content });
@@ -77,7 +75,7 @@ export function ChatPanel() {
 
   return (
     <div className="flex h-full min-h-0 flex-col bg-chloe-void">
-      <div className="flex-1 min-h-0 overflow-y-auto p-4" ref={scrollRef}>
+      <div className="flex-1 min-h-0 overflow-y-auto p-4">
         <div className="space-y-4">
           {messages.length === 0 && (
             <div className="flex flex-col items-center justify-center gap-4 pt-12 pb-6">
@@ -123,6 +121,7 @@ export function ChatPanel() {
               <span className="text-chloe-pink/20">†</span>
             </div>
           )}
+          <div ref={bottomRef} />
         </div>
       </div>
       <div className="border-t border-chloe-pink/15 bg-chloe-abyss/80 p-3">
