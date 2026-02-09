@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, LogIn, Wallet, Twitter, Volume2, VolumeX } from "lucide-react";
+import { Menu, X, LogIn, Wallet, Twitter, Github, Volume2, VolumeX } from "lucide-react";
 import { useWallet } from "@solana/wallet-adapter-react";
 import { NAV_LINKS } from "@/lib/utils";
 import { cn } from "@/lib/utils";
@@ -71,6 +71,14 @@ export function Header() {
 
           {/* Right side */}
           <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/chloe-code-chan/chloe"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden sm:flex items-center justify-center h-8 w-8 border border-chloe-pink/30 text-chloe-pink/80 hover:text-chloe-pink hover:border-chloe-pink/60 hover:bg-chloe-pink/10 hover:shadow-[0_0_12px_#FF149325] transition-all"
+            >
+              <Github className="h-3.5 w-3.5" />
+            </a>
             <a
               href="https://x.com/xx_chloechan_xx"
               target="_blank"
@@ -147,10 +155,19 @@ export function Header() {
                     </Link>
                   ))}
                   <a
-                    href="https://x.com/xx_chloechan_xx"
+                    href="https://github.com/chloe-code-chan/chloe"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-4 flex items-center gap-2 px-3 py-2.5 font-mono text-xs uppercase tracking-[0.15em] text-chloe-smoke hover:text-chloe-pink hover:bg-chloe-pink/5 transition-colors"
+                  >
+                    <Github className="h-3.5 w-3.5" />
+                    GitHub
+                  </a>
+                  <a
+                    href="https://x.com/xx_chloechan_xx"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 px-3 py-2.5 font-mono text-xs uppercase tracking-[0.15em] text-chloe-smoke hover:text-chloe-pink hover:bg-chloe-pink/5 transition-colors"
                   >
                     <Twitter className="h-3.5 w-3.5" />
                     @xx_chloechan_xx

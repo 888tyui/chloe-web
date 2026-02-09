@@ -17,7 +17,7 @@ export function Footer() {
         </div>
         <div className="flex items-center gap-5">
           <Link
-            href="https://github.com"
+            href="https://github.com/chloe-code-chan/chloe"
             target="_blank"
             rel="noopener noreferrer"
             className="text-chloe-ash/70 transition-all duration-200 hover:text-chloe-pink hover:drop-shadow-[0_0_8px_#FF1493]"
