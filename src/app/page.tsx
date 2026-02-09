@@ -184,7 +184,7 @@ export default function HomePage() {
               {/* Status cluster */}
               <motion.div variants={fadeUp} className="flex flex-wrap gap-2">
                 <div className="pill-badge font-mono" style={{ borderColor: '#FF149340', color: '#FF1493', background: '#FF149308' }}>
-                  CA : Soon.
+                  CA : DWZQTTJf5LTzUY6WdzKK36ku1xXgBFDn2ZsEreCppump
                 </div>
               </motion.div>
 

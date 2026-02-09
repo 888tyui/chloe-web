@@ -81,7 +81,9 @@ export function Header() {
               @xx_chloechan_xx
             </a>
             <a
-              href="#"
+              href="https://pump.fun/coin/DWZQTTJf5LTzUY6WdzKK36ku1xXgBFDn2ZsEreCppump"
+              target="_blank"
+              rel="noopener noreferrer"
               className="hidden sm:flex items-center h-8 px-3 border border-chloe-pink/40 text-chloe-pink hover:bg-chloe-pink/10 hover:border-chloe-pink hover:shadow-[0_0_12px_#FF149330] transition-all font-mono text-[10px] font-bold tracking-wider uppercase"
             >
               $CHLOE
