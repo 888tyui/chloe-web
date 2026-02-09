@@ -32,7 +32,7 @@ export async function POST(req: NextRequest) {
               { role: "user", content: prompt },
             ],
             max_completion_tokens: 4000,
-            reasoning_effort: "low",
+            reasoning_effort: "none",
             verbosity: "low",
           }),
         }
