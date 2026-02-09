@@ -20,7 +20,7 @@ export async function getOpenAIResponse(
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      model: "gpt-4.1",
+      model: "gpt-5.2",
       messages: [{ role: "system", content: systemPrompt }, ...messages],
       max_tokens: maxTokens,
       response_format: { type: "json_object" },
