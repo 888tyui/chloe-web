@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useCallback } from "react";
-import { Code2, Eye, Sparkles } from "lucide-react";
+import { Code2, Eye, Sparkles, Monitor } from "lucide-react";
 import { EditorPanel } from "@/components/coder/editor-panel";
 import { PreviewPanel } from "@/components/coder/preview-panel";
 import { CoderChat } from "@/components/coder/coder-chat";
@@ -81,7 +81,21 @@ export default function CoderPage() {
   }, [files]);
 
   return (
-    <div className="flex h-[calc(100vh-4rem)] bg-chloe-void">
+    <>
+    {/* Mobile fallback */}
+    <div className="flex lg:hidden h-[calc(100vh-4rem)] flex-col items-center justify-center bg-chloe-void px-8 text-center">
+      <Monitor className="h-12 w-12 text-chloe-pink/40 mb-6" />
+      <h2 className="font-title text-2xl text-chloe-pink uppercase tracking-[0.15em] mb-3">
+        Desktop Only
+      </h2>
+      <p className="font-mono text-[11px] text-chloe-ash/60 leading-relaxed max-w-[320px]">
+        The code editor requires a larger screen.
+        Please use a PC or Web environment for the best experience. ♡
+      </p>
+      <span className="mt-6 font-mono text-[8px] text-chloe-pink/20 tracking-[0.3em]">† CHLOE::CODER ♰</span>
+    </div>
+
+    <div className="hidden lg:flex h-[calc(100vh-4rem)] bg-chloe-void">
       {/* Left: Live2D + Chat */}
       <div className="flex w-[280px] shrink-0 flex-col border-r border-chloe-elevated/60 bg-chloe-abyss/40">
         {/* Mini Live2D */}
@@ -175,5 +189,6 @@ export default function CoderPage() {
         </div>
       </div>
     </div>
+    </>
   );
 }
