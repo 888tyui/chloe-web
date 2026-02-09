@@ -25,7 +25,7 @@ export function Footer() {
             <Github className="h-4 w-4" />
           </Link>
           <Link
-            href="https://twitter.com"
+            href="https://x.com/xx_chloechan_xx"
             target="_blank"
             rel="noopener noreferrer"
             className="text-chloe-ash/70 transition-all duration-200 hover:text-chloe-cyan hover:drop-shadow-[0_0_8px_#00FFFF]"
