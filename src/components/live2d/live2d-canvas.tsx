@@ -86,6 +86,13 @@ export default function Live2DCanvas({
 
         modelRef.current = model;
 
+        // Disable Pixi event system on Live2D model to prevent
+        // isInteractive errors from pixi-live2d-display compatibility
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (model as any).eventMode = "none";
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (model as any).interactiveChildren = false;
+
         const scale = Math.min(
           canvasRef.current.clientWidth / model.width,
           canvasRef.current.clientHeight / model.height

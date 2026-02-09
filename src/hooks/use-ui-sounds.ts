@@ -22,7 +22,8 @@ let lastHoverTime = 0;
 const HOVER_THROTTLE = 80; // ms between hover sounds
 
 function handleMouseEnter(e: Event) {
-  const target = e.target as HTMLElement;
+  const target = e.target;
+  if (!(target instanceof HTMLElement)) return;
   if (!target.matches(INTERACTIVE_SELECTOR) && !target.closest(INTERACTIVE_SELECTOR)) return;
 
   const now = Date.now();
@@ -33,7 +34,8 @@ function handleMouseEnter(e: Event) {
 }
 
 function handleClick(e: Event) {
-  const target = e.target as HTMLElement;
+  const target = e.target;
+  if (!(target instanceof HTMLElement)) return;
   if (!target.matches(INTERACTIVE_SELECTOR) && !target.closest(INTERACTIVE_SELECTOR)) return;
 
   playClickSound();
