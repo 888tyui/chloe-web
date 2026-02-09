@@ -36,6 +36,11 @@ export async function POST(req: NextRequest) {
         { role: "user" as const, content: message },
       ];
 
+      if (chatContext === "coder") {
+        console.log("[CODER API] Sending to OpenAI, message:", message);
+        console.log("[CODER API] Max tokens:", MAX_TOKENS[chatContext]);
+      }
+
       const response = await getOpenAIResponse(
         systemPrompt,
         messages,
@@ -44,6 +49,17 @@ export async function POST(req: NextRequest) {
           ? { reasoningEffort: "none" }
           : { reasoningEffort: "none", verbosity: "low" }
       );
+
+      if (chatContext === "coder") {
+        console.log("[CODER API] OpenAI response keys:", Object.keys(response));
+        console.log("[CODER API] Has code?", !!response.code, "type:", typeof response.code);
+        if (response.code && typeof response.code === "object") {
+          const code = response.code as Record<string, unknown>;
+          console.log("[CODER API] code.content length:", typeof code.content === "string" ? code.content.length : "N/A");
+        }
+        console.log("[CODER API] Full response:", JSON.stringify(response).slice(0, 500));
+      }
+
       return NextResponse.json(response);
     }
 

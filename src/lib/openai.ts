@@ -43,16 +43,26 @@ export async function getOpenAIResponse(
   });
 
   if (!response.ok) {
+    const errBody = await response.text();
+    console.error("[OpenAI] API error:", response.status, errBody.slice(0, 300));
     throw new Error(`OpenAI API error: ${response.status}`);
   }
 
   const data = await response.json();
   const raw = data.choices?.[0]?.message?.content || "{}";
+  const finishReason = data.choices?.[0]?.finish_reason;
+  const usage = data.usage;
+
+  console.log("[OpenAI] finish_reason:", finishReason);
+  console.log("[OpenAI] usage:", JSON.stringify(usage));
+  console.log("[OpenAI] raw response length:", raw.length);
+  console.log("[OpenAI] raw preview:", raw.slice(0, 300));
 
   try {
     return JSON.parse(raw);
-  } catch {
-    // Fallback: wrap raw text in a basic structure
+  } catch (e) {
+    console.error("[OpenAI] JSON parse failed:", e);
+    console.error("[OpenAI] Raw content:", raw.slice(0, 500));
     return { message: raw, mood: "neutral" };
   }
 }

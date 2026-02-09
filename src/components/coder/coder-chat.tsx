@@ -187,6 +187,12 @@ export function CoderChat({ onCodeGenerated, currentCode }: CoderChatProps) {
 
       const data = await res.json();
 
+      console.log("[CODER] API response status:", res.status);
+      console.log("[CODER] Full response data:", JSON.stringify(data, null, 2));
+      console.log("[CODER] data.code type:", typeof data.code);
+      console.log("[CODER] data.code value:", data.code);
+      console.log("[CODER] data.message:", data.message);
+
       if (data.error) throw new Error(data.error);
 
       const message = data.message || "here you go. ♡";
@@ -196,12 +202,18 @@ export function CoderChat({ onCodeGenerated, currentCode }: CoderChatProps) {
       // Handle code from API response
       if (data.code) {
         if (typeof data.code === "object" && data.code.content) {
+          console.log("[CODER] Using code.content (object), length:", data.code.content.length);
           onCodeGenerated(data.code.content);
           codeAttached = true;
         } else if (typeof data.code === "string" && data.code.trim()) {
+          console.log("[CODER] Using code as string, length:", data.code.length);
           onCodeGenerated(data.code);
           codeAttached = true;
+        } else {
+          console.log("[CODER] code field exists but not usable:", data.code);
         }
+      } else {
+        console.log("[CODER] No code field in response");
       }
 
       // Handle mock response with _template marker
