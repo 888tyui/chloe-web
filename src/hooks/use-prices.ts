@@ -43,8 +43,6 @@ export function usePrices() {
 
   useEffect(() => {
     fetchPrices();
-    const interval = setInterval(fetchPrices, 30000);
-    return () => clearInterval(interval);
   }, [fetchPrices]);
 
   return { prices, loading };
