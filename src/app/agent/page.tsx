@@ -204,7 +204,7 @@ export default function AgentPage() {
           </TabsContent>
           <TabsContent
             value="terminal"
-            className="flex-1 overflow-hidden mt-0"
+            className="flex-1 min-h-0 overflow-hidden mt-0"
           >
             <TerminalPanel />
           </TabsContent>

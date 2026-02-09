@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useRef, useEffect, type KeyboardEvent } from "react";
-import { ScrollArea } from "@/components/ui/scroll-area";
 import { Loader2 } from "lucide-react";
 
 interface TerminalLine {
@@ -303,12 +302,10 @@ export function TerminalPanel() {
   const [isThinking, setIsThinking] = useState(false);
   const [lastHint, setLastHint] = useState<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  const bottomRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [lines, isThinking]);
 
   const execute = async (cmd: string) => {
@@ -427,7 +424,7 @@ export function TerminalPanel() {
 
   return (
     <div
-      className="flex h-full flex-col bg-chloe-void font-mono text-sm"
+      className="flex h-full min-h-0 flex-col bg-chloe-void font-mono text-sm"
       onClick={() => inputRef.current?.focus()}
     >
       {/* Terminal header */}
@@ -451,7 +448,7 @@ export function TerminalPanel() {
       </div>
 
       {/* Terminal body */}
-      <ScrollArea className="flex-1 p-4 relative" ref={scrollRef}>
+      <div className="flex-1 min-h-0 overflow-y-auto p-4 relative">
         {/* Subtle scanline */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-chloe-pink/[0.01] to-transparent bg-[length:100%_4px]" />
         <div className="space-y-3">
@@ -496,8 +493,9 @@ export function TerminalPanel() {
               <span className="text-[10px] animate-pulse tracking-wider">thinking...</span>
             </div>
           )}
+          <div ref={bottomRef} />
         </div>
-      </ScrollArea>
+      </div>
 
       {/* Input line */}
       <div className="border-t border-chloe-pink/15 bg-chloe-abyss/80 px-4 py-2.5 space-y-1">
