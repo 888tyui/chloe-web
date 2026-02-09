@@ -25,13 +25,15 @@ export async function POST(req: NextRequest) {
             model: "gpt-5.2",
             messages: [
               {
-                role: "system",
+                role: "developer",
                 content:
                   "You are a code generator. Generate a complete, self-contained HTML file with embedded CSS and JS. Use a pink (#FF69B4, #FF1493) and blue (#00BFFF) color scheme. Return ONLY the HTML code, no explanations.",
               },
               { role: "user", content: prompt },
             ],
-            max_tokens: 4000,
+            max_completion_tokens: 4000,
+            reasoning_effort: "low",
+            verbosity: "low",
           }),
         }
       );

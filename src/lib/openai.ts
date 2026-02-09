@@ -1,5 +1,5 @@
 interface ChatCompletionMessage {
-  role: "system" | "user" | "assistant";
+  role: "developer" | "user" | "assistant";
   content: string;
 }
 
@@ -21,8 +21,10 @@ export async function getOpenAIResponse(
     },
     body: JSON.stringify({
       model: "gpt-5.2",
-      messages: [{ role: "system", content: systemPrompt }, ...messages],
-      max_tokens: maxTokens,
+      messages: [{ role: "developer", content: systemPrompt }, ...messages],
+      max_completion_tokens: maxTokens,
+      reasoning_effort: "none",
+      verbosity: "low",
       response_format: { type: "json_object" },
     }),
   });
